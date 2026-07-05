@@ -1,54 +1,55 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-# Hotel Revenue & Occupancy Forecasting
+# 🏨 Hotel Revenue & Occupancy Forecasting Engine
 
-**Objective:** Predict future room occupancy and revenue trends from historical
-booking data, identify peak demand seasons, and recommend a dynamic pricing
-strategy to maximize TRevPAR (Total Revenue Per Available Room).
+An intelligent, data-driven **Revenue Management System (RMS)** and forecasting engine built with Python, Flask, and Scikit-Learn. The application helps hospitality businesses automate predictive analysis, run yield optimization strategies, and perform dynamic competitive market tracking.
 
-**Tools:** Python (Pandas, NumPy, Scikit-learn, Matplotlib)
+🌐 **Live Web Application URL:** [https://hotel-revenue-forecaster.onrender.com](https://hotel-revenue-forecaster.onrender.com)
 
-## What the script does
-1. **Generates 2 years of synthetic daily booking data** (150-room property)
-   with realistic seasonality (winter + summer peaks), weekend demand spikes,
-   and a mild growth trend — `hotel_bookings_2023_2024.csv`.
-2. **Identifies peak vs. standard demand months** using a quantile threshold
-   on monthly occupancy — `outputs/monthly_summary.csv`.
-3. **Trains a Random Forest regression model** to forecast occupancy rate
-   from calendar features (month, weekday, weekend flag, season flag).
-   Achieved **R² ≈ 0.83** on held-out data.
-4. **Forecasts Q1 2025 occupancy** and applies a **rule-based dynamic pricing
-   engine**: rates flex from -15% (low demand) to +35% (high demand) versus
-   a flat baseline rate.
-5. **Quantifies the pricing strategy's impact**: dynamic pricing projects
-   roughly a **16-17% revenue lift** over flat pricing for the same forecast
-   period.
+---
 
-## Files
-| File | Description |
-|---|---|
-| `hotel_bookings_2023_2024.csv` | Raw synthetic historical data |
-| `outputs/monthly_summary.csv` | Monthly occupancy/revenue/RevPAR + demand label |
-| `outputs/forecast_2025_q1_with_pricing.csv` | Forecast + recommended rate/action per day |
-| `outputs/01_monthly_occupancy_revpar.png` | Occupancy vs RevPAR trend |
-| `outputs/02_peak_vs_standard_revenue.png` | Revenue share: peak vs standard months |
-| `outputs/03_actual_vs_predicted.png` | Model accuracy plot |
-| `outputs/04_q1_2025_forecast_pricing.png` | Forecast colored by pricing action |
+## 🚀 Core Features
 
-## How to run
-```bash
-python3 revenue_forecasting.py
-```
+1. **Dual Ingestion Architecture**
+   * **Manual Mode:** Accept raw `.csv` and `.xlsx` booking logs directly via browser file upload.
+   * **Dynamic Tracking Mode:** Paste any commercial hotel directory or travel search page link (e.g., Booking.com, Choice Hotels) to scrape current pricing data dynamically.
 
-## Note on the data
-This is **synthetic data generated for demonstration purposes** — built to
-show the full analytical workflow (data → model → business recommendation)
-since no real hotel dataset was available. If you have access to real PMS
-(Opera/Marsha) export data, swap the `generate_data()` step for a CSV import
-and the rest of the pipeline runs unchanged.
-=======
-# hotel-revenue-forecaster
->>>>>>> 58a4fa043525b3679dd262a20a913988a98dbc7b
-=======
-# hotel-revenue-forecaster
->>>>>>> 46cf2c326351d31b161785600f130f8c3e5e69e7
+2. **Stealth Web Scraping Pipeline**
+   * Employs **Playwright** with custom arguments (`AutomationControlled` bypass flags, user-agent masking, and init scripts) to cleanly navigate around enterprise cloud firewalls.
+   * Automatically isolates listing nodes, extracts dynamic currency structures using optimized Regular Expressions, and shapes them into standard operational data frames.
+
+3. **Predictive Machine Learning Engine**
+   * Automatically normalizes uploaded/scraped inputs and performs feature engineering (extracting indices for weekends, months, and customer surge peak seasons).
+   * Trains a **Random Forest Regressor** ensemble model (300 parallel decision trees) with an 80/20 data split pattern.
+   * Outputs live accuracy scoring metrics, including **Mean Absolute Error (MAE)** and the **$R^2$ Variance Score**.
+   * Projects a daily baseline occupancy curve for a **90-Day Forward Quarter (Q1)** timeline.
+
+4. **Yield Optimization & Adaptive Pricing**
+   * Layers a rule-based algorithm over the machine learning projections to output explicit strategic commands:
+     * **$\ge 80\%$ Occupancy:** Yields a **+35% Price Increase** (High Demand Maximization)
+     * **$\ge 65\%$ Occupancy:** Yields a **+15% Price Increase** (Above-Average Demand)
+     * **$\ge 45\%$ Occupancy:** Yields a **Hold Strategy** (Standard Operations)
+     * **$< 45\%$ Occupancy:** Yields a **-15% Room Discount** (Low Demand Stimulation)
+   * Computes cumulative forward quarters to gauge flat-rate models against adaptive models, outputting the **Estimated TRevPAR Lift Percentage**.
+
+5. **Modern Fluid UI/UX**
+   * Built with responsive, clean styling and fully integrated with **Chart.js** for rendering multiple interactive animated graphics.
+   * Features a glassmorphic **loading overlay screen** with a rotating spinner that engages during headless browser initialization and model compilation phases to provide smooth visual feedback.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Backend Engine:** Python 3, Flask, Gunicorn (Production HTTP Server)
+* **Data Science & ML:** Pandas, NumPy, Scikit-Learn (Random Forest Regressor)
+* **Automation & Extraction:** Playwright (Headless Chromium), BeautifulSoup4, Regular Expressions (`re`)
+* **Frontend Delivery:** HTML5, CSS3 (Keyframe Animations), JavaScript (ES6), Chart.js
+
+---
+
+## 🔧 Local Setup Instructions
+
+Follow these instructions to run the application on your local development machine:
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/chingfo777/hotel-revenue-forecaster.git](https://github.com/chingfo777/hotel-revenue-forecaster.git)
+   cd hotel-revenue-forecaster
